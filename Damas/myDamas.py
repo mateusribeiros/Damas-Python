@@ -28,7 +28,7 @@ no_menu = True
 executando = True
 while executando:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_F2):
             executando = False
 
     if no_menu:
@@ -38,15 +38,18 @@ while executando:
         fonte_texto = pygame.font.Font(None, 26)
 
         texto_titulo = fonte_titulo.render("Jogo de Damas", True, BRANCO)
-        texto_novo = fonte_texto.render("INICIAR NOVO", True, BRANCO)
-        texto_sair = fonte_texto.render("SAIR", True, BRANCO)
+        texto_novo = fonte_texto.render("NOVO JOGO (ENTER)", True, BRANCO)
+        texto_historico = fonte_texto.render("RECUPERAR PARTIDA (IMPLEMENTAR)", True, BRANCO)
+        texto_sair = fonte_texto.render("SAIR (F2)", True, BRANCO)
 
         ret_titulo = texto_titulo.get_rect(center=(largura_janela // 2, altura_janela // 2 - 100))
         ret_novo = texto_novo.get_rect(center=(largura_janela // 2, altura_janela // 2))
-        ret_sair = texto_sair.get_rect(center=(largura_janela // 2, altura_janela // 2 + 50))
+        ret_historico = texto_historico.get_rect(center=(largura_janela // 2, altura_janela // 2 + 50))
+        ret_sair = texto_sair.get_rect(center=(largura_janela // 2, altura_janela // 2 + 100))
 
         tela.blit(texto_titulo, ret_titulo)
         tela.blit(texto_novo, ret_novo)
+        tela.blit(texto_historico, ret_historico)
         tela.blit(texto_sair, ret_sair)
 
         # Verifica se o jogador pressionou a tecla ENTER para iniciar o jogo
