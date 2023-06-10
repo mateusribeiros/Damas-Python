@@ -1,5 +1,5 @@
 #!python3
 
-from Damas import damas
+from Damas import myDamas
 
-damas()
+myDamas()
