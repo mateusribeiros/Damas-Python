@@ -8,7 +8,7 @@ tela = pygame.display.set_mode((540,780))
 pygame.display.set_caption('Image')
 
 # Carregar a imagem usando o Pygame
-imagem = pygame.image.load("./imagem.jpg")
+imagem = pygame.image.load(".\\Damas\\tabuleiro.jpg")
 pygame.display.set_caption('Jogo de damas')
 
 while True:
