@@ -7,7 +7,6 @@ class Tabuleiro:
     def __init__(self):
         self.tabuleiro = []
         self.criar_peças()
-        #self.selecionada = None
         #self.branca.left = self.preto_left = 12
     def desenhar_tabu(self,surface):
         for linha in range(Linhas):
@@ -39,8 +38,3 @@ class Tabuleiro:
                 peca = self.tabuleiro[linha][coluna]
                 if peca != 0:
                     peca.desenhar(surface)
-    def movimentos(self,peça,linha,coluna):
-        self.tabuleiro[peça.linha][peça.coluna],self.tabuleiro[linha][coluna] = self.tabuleiro[peça.linha][peça.coluna], self.tabuleiro[linha][coluna]
-        peça.movimento(linha,coluna)
-    def pegar_peça(self,linha,coluna):
-        return self.tabuleiro[linha][coluna]
