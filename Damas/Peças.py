@@ -1,5 +1,5 @@
 import pygame
-from Damas.Variaveis import preto,Tamanho,branco
+from Variaveis import preto,Tamanho,branco
 
 class Pieces:
 

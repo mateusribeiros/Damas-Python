@@ -1,5 +1,3 @@
-import pygame
-
 largura, altura = 500,500
 Linhas,Colunas = 8,8
 Tamanho = largura//Colunas

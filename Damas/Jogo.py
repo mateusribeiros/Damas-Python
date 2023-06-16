@@ -1,6 +1,6 @@
 import pygame
-from Damas.Variaveis import branco, preto
-from Damas.Tela import Tabuleiro
+from Variaveis import branco, preto
+from Tela import Tabuleiro
 
 class Jogo:
     def __init__(self, superficie):

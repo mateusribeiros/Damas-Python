@@ -28,20 +28,29 @@ pygame.display.set_caption("Jogo de Damas")
 numeros_linhas = ['1', '2', '3', '4', '5', '6', '7', '8']
 letras_colunas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
-# Função para obter as casas disponíveis para movimento
+# Função para obter as casas disponíveis para movimento (POSSIVEL MUDANÇA NA IMPLEMENTAÇAO DA ARVORE)
 def obter_casas_disponiveis(linha, coluna):
+    casa_esq = 0
+    casa_dir = 0
     casas_disponiveis = []
+    
     if vez_das_brancas:
-        casas_disponiveis.append((linha + 1, coluna + 1))
-        casas_disponiveis.append((linha + 1, coluna - 1))
-    else:
-        casas_disponiveis.append((linha - 1, coluna + 1))
-        casas_disponiveis.append((linha - 1, coluna - 1))
+        casa_esq = (linha + 1, coluna - 1)
+        casa_dir = (linha + 1, coluna + 1)
+    elif not vez_das_brancas:
+        casa_esq = (linha - 1, coluna - 1)
+        casa_dir = (linha - 1, coluna + 1)
+
+    if casa_esq not in (pos_iniciais_brancas and pos_iniciais_pretas):
+        casas_disponiveis.append(casa_esq)
+    if casa_dir not in (pos_iniciais_brancas and pos_iniciais_pretas):
+        casas_disponiveis.append(casa_dir)
     return casas_disponiveis
 
 # Estado Inicial da partida
 def obter_estado_inicial():
     global pos_iniciais_brancas, pos_iniciais_pretas, selecionado, pos_selecionada, vez_das_brancas
+    
     pos_iniciais_brancas = [
         (0, 1), (0, 3), (0, 5), (0, 7),
         (1, 0), (1, 2), (1, 4), (1, 6),

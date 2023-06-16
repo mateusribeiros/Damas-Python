@@ -1,5 +1,5 @@
 import pygame
-from Damas.Variaveis import branco,cinza,Linhas,Colunas,preto
+from Variaveis import branco,cinza,Linhas,Colunas,preto
 from Peças import Pieces
 
 class Tabuleiro:
