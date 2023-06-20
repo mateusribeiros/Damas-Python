@@ -1,4 +1,4 @@
-largura, altura = 500,500
+largura, altura = 800,800
 Linhas,Colunas = 8,8
 Tamanho = largura//Colunas
 

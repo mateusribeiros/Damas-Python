@@ -1,29 +1,29 @@
 import pygame
-from Variaveis import branco,cinza,Linhas,Colunas,preto
+from Variaveis import branco, cinza, Linhas, Colunas, preto,Tamanho
 from Peças import Pieces
 
 class Tabuleiro:
-
     def __init__(self):
         self.tabuleiro = []
         self.criar_peças()
-        #self.branca.left = self.preto_left = 12
-    def desenhar_tabu(self,surface):
+
+    def desenhar_tabu(self, surface):
         for linha in range(Linhas):
             for coluna in range(Colunas):
-                x = coluna * 62.5
-                y = linha * 62.5
+                x = coluna * Tamanho
+                y = linha * Tamanho
                 if (linha + coluna) % 2 == 0:
-                    pygame.draw.rect(surface, (branco), (x, y, 62.5, 62.5))
+                    pygame.draw.rect(surface, branco, (x, y, Tamanho, Tamanho))
                 else:
-                    pygame.draw.rect(surface, (cinza), (x, y, 62.5, 62.5))
+                    pygame.draw.rect(surface, cinza, (x, y, Tamanho, Tamanho))
+
     def criar_peças(self):
         for linha in range(Linhas):
             self.tabuleiro.append([])
-            for coluna in range (Colunas):
-                if coluna % 2 == ((linha+1) % 2):
+            for coluna in range(Colunas):
+                if coluna % 2 == (linha + 1) % 2:
                     if linha < 3:
-                        self.tabuleiro[linha].append(Pieces(linha,coluna,branco))
+                        self.tabuleiro[linha].append(Pieces(linha, coluna, branco))
                     elif linha > 4:
                         self.tabuleiro[linha].append(Pieces(linha, coluna, preto))
                     else:
@@ -38,3 +38,4 @@ class Tabuleiro:
                 peca = self.tabuleiro[linha][coluna]
                 if peca != 0:
                     peca.desenhar(surface)
+
