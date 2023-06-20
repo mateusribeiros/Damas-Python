@@ -20,10 +20,3 @@ class Pieces:
         self.linha = linha
         self.coluna = coluna
         self.posição()
-    def ajuda(self,surface):
-        if selecionado and pos_selecionada:
-            casas_disponiveis = obter_casas_disponiveis(pos_selecionada[0], pos_selecionada[1])
-            for linha, coluna in casas_disponiveis:
-                x = (coluna * tamanho_quadrado)
-                y = (linha * tamanho_quadrado)
-                pygame.draw.circle(surface,(0,0,255),(self.x,self.y),10)

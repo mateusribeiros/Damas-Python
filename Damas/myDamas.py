@@ -90,7 +90,6 @@ while executando:
             pygame.time.wait(1300)
 
             obter_estado_inicial()
-
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Botão esquerdo do mouse pressionado
             if not selecionado:
                 # Verifica se uma peça foi selecionada
@@ -159,7 +158,7 @@ while executando:
         tela.blit(texto_sair, ret_sair)
         tela.blit(texto_msg, (10, 680))
 
-        # Verifica se o jogador pressionou a tecla ENTER para iniciar o jogo
+        # Verifica se o jogador pressionou a tecla ENTE R para iniciar o jogo
         teclas_pressionadas = pygame.key.get_pressed()
         if teclas_pressionadas[pygame.K_RETURN]:
             no_menu = False
