@@ -1,5 +1,5 @@
 import pygame
-from Variaveis import largura, altura, Tamanho, branco, preto, cinza
+from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja
 from Peças import Pieces
 from Tela import Tabuleiro
 from Jogo import Jogo
@@ -55,18 +55,21 @@ while executando:
             obter_estado_inicial()
     if no_menu:
         # Lógica do menu
-        tela.fill(preto)
+        imagem = pygame.image.load('./menu.jpg')
+        imagem = pygame.transform.scale(imagem, (largura, altura))
         
+        tela.blit(imagem,(0,0))
+
         fonte_titulo = pygame.font.Font(None, 76)
         fonte_texto = pygame.font.Font(None, 26)
-        fonte_desc = pygame.font.Font(None, 16)
+
         texto_titulo = fonte_titulo.render("Jogo de Damas", True, branco)
         texto_novo = fonte_texto.render("NOVO JOGO (ENTER)", True, branco)
         texto_reiniciar = fonte_texto.render("REINICIAR PARTIDA (R)", True, branco)
         texto_salvar = fonte_texto.render("SALVAR PARTIDA (IMPLEMENTAR)", True, branco)
         texto_historico = fonte_texto.render("HISTÓRICO DE PARTIDAS (IMPLEMENTAR)", True, branco)
         texto_sair = fonte_texto.render("SAIR (F2)", True, branco)
-        texto_msg = fonte_desc.render("Durante a partida pressione ESC para retornar ao MENU", True, preto)
+        texto_msg = fonte_texto.render("Durante a partida pressione ESC para retornar ao MENU", True, laranja)
 
         ret_titulo = texto_titulo.get_rect(center=(largura // 2, altura // 2 - 125))
         ret_novo = texto_novo.get_rect(center=(largura // 2, altura // 2))
@@ -81,7 +84,7 @@ while executando:
         tela.blit(texto_salvar, ret_salvar)
         tela.blit(texto_historico, ret_historico)
         tela.blit(texto_sair, ret_sair)
-        tela.blit(texto_msg, (10, 680))
+        tela.blit(texto_msg, (10, 750))
 
         teclas_pressionadas = pygame.key.get_pressed()
         if teclas_pressionadas[pygame.K_RETURN]:
