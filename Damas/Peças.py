@@ -16,7 +16,7 @@ class Pieces:
     def desenhar(self,surface):
         pygame.draw.circle(surface, self.cor, (self.x,self.y), 30)
         pygame.draw.circle(surface, self.cor, (self.x,self.y), 30)
-    def movimento(self,linha,coluna):
+    def mov(self,linha,coluna):
         self.linha = linha
         self.coluna = coluna
         self.posição()
