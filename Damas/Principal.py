@@ -45,6 +45,7 @@ while executando:
             executando = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             no_menu = True
+            tela.fill(preto)
     if no_menu:
         fonte_titulo = pygame.font.Font(None, 76)
         fonte_texto = pygame.font.Font(None, 26)
