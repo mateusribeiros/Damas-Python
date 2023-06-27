@@ -3,11 +3,13 @@ from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja
 from Peças import Pieces
 from Tela import Tabuleiro
 from Jogo import Jogo
+from IA import IA
 
 pygame.init()
 tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Jogo de damas')
 clock = pygame.time.Clock()
+
 
 def mouse(pos):
     x, y = pos
@@ -15,8 +17,10 @@ def mouse(pos):
     coluna = x // Tamanho
     return linha, coluna
 
+
 tabuleiro = Tabuleiro()
 jogo = Jogo(tela)
+
 
 def obter_estado_inicial():
     global pos_iniciais_brancas, pos_iniciais_pretas
@@ -32,11 +36,18 @@ def obter_estado_inicial():
         (6, 1), (6, 3), (6, 5), (6, 7),
         (7, 0), (7, 2), (7, 4), (7, 6),
     ]
-    
+
+
 obter_estado_inicial()
 no_menu = True
 executando = True
 while executando:
+    if jogo.rodada == branco:
+        valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(),4,branco,jogo)
+        jogo.movimento_ia(novo_tabuleiro)
+    if jogo.ganhador() != None:
+        print(jogo.ganhador())
+        executando = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_F2):
             executando = False
