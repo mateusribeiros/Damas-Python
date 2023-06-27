@@ -7,6 +7,8 @@ class Tabuleiro:
         self.tabuleiro = []
         self.criar_tela()
         self.preto_esquerda = self.branco_esquerda = 12
+        self.jogo_encerrado = False
+        
     def desenhar_quadrados(self, surface):
         for linha in range(Linhas):
             for coluna in range(Colunas):
@@ -55,12 +57,13 @@ class Tabuleiro:
                 else:
                     self.branco_esquerda -= 1
 
-    def ganhador(self):
-        if self.preto_esquerda <= 0:
-            return "VITORIA DO BRANCO"
-        elif self.branco_esquerda <= 0:
-            return "VITORIA DO PRETO"
+    def ganhador(self): 
 
+        if self.preto_esquerda <= 0 or self.branco_esquerda <= 0:
+            self.jogo_encerrado = True
+
+            return "VITÓRIA DOS BRANCOS!" if self.preto_esquerda <= 0 else "VITÓRIA DOS PRETOS"
+    
         return None
 
     def pegar_movimento_validos(self, peca):

@@ -20,9 +20,12 @@ class Jogo:
         self.selecionado = None
         self.tabuleiro = Tabuleiro()
         self.rodada = preto
+
         self.valido_mov = {}
+    
     def ganhador(self):
         return self.tabuleiro.ganhador()
+    
     def selecionar(self, linha, coluna):
         if self.selecionado:
             resultado = self._movimento(linha, coluna)
@@ -47,6 +50,7 @@ class Jogo:
         else:
             return False
         return True
+    
     def mudar_rodada(self):
         self.valido_mov = {}
         if self.rodada == preto:

@@ -37,9 +37,6 @@ obter_estado_inicial()
 no_menu = True
 executando = True
 while executando:
-    if jogo.ganhador() != None:
-        print(jogo.ganhador())
-        executando = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_F2):
             executando = False
@@ -73,12 +70,24 @@ while executando:
         teclas_pressionadas = pygame.key.get_pressed()
         if teclas_pressionadas[pygame.K_RETURN]:
             no_menu = False
-
     else:
         tela.fill(preto)
         tabuleiro.desenhar_quadrados(tela)
         tabuleiro.desenhar(tela)
         jogo.update()
+        
+    if not tabuleiro.jogo_encerrado:
+        if jogo.ganhador() != None:
+            resultado = jogo.ganhador()
+
+            tela.fill(preto)
+            fonte_msg = pygame.font.Font(None, 80)
+            texto_msg = fonte_msg.render(resultado, True, branco)
+            ret_msg = texto_msg.get_rect(center=(largura // 2, altura // 2 - 125))
+
+            tela.blit(texto_msg, ret_msg)
+
+            no_menu = True
     if event.type == pygame.MOUSEBUTTONDOWN:
         pos = pygame.mouse.get_pos()
         linha, coluna = mouse(pos)
