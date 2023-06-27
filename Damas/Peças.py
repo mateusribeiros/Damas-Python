@@ -1,5 +1,5 @@
 import pygame
-from Variaveis import preto,Tamanho,branco #UFG
+from Variaveis import preto,Tamanho,branco,UFG
 
 class Pieces:
 
@@ -11,7 +11,7 @@ class Pieces:
         self.y = 0
         self.posição()
         self.king = False
-    def fazer_ling(self):
+    def fazer_king(self):
         self.king = True
     def posição(self):
         self.x = Tamanho * self.coluna + Tamanho//2
