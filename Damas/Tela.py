@@ -7,6 +7,7 @@ class Tabuleiro:
         self.tabuleiro = []
         self.criar_tela()
         self.preto_esquerda = self.branco_esquerda = 12
+        self.preto_kings = self.branco_kings = 0
     def desenhar_quadrados(self, surface):
         for linha in range(Linhas):
             for coluna in range(Colunas):
@@ -42,6 +43,12 @@ class Tabuleiro:
     def mov(self, peca, linha, coluna):
         self.tabuleiro[peca.linha][peca.coluna], self.tabuleiro[linha][coluna] = self.tabuleiro[linha][coluna], self.tabuleiro[peca.linha][peca.coluna]
         peca.mov(linha, coluna)
+        if linha == Linhas - 1 or linha == 0:
+            peca.fazer_king()
+            if peca.cor == branco:
+                self.branco_kings += 1
+            else:
+                self.preto_kings += 1
 
     def pegar_peca(self, linha, coluna):
         return self.tabuleiro[linha][coluna]
@@ -69,10 +76,10 @@ class Tabuleiro:
         direita = peca.coluna + 1
         linha = peca.linha
 
-        if peca.cor == preto:
+        if peca.cor == preto or peca.king:
             movim.update(self._transversal_esquerda(linha - 1, max(linha - 3, -1), -1, peca.cor, esquerda))
             movim.update(self._transversal_direita(linha - 1, max(linha - 3, -1), -1, peca.cor, direita))
-        if peca.cor == branco:
+        if peca.cor == branco or peca.king:
             movim.update(self._transversal_esquerda(linha + 1, min(linha + 3, Linhas), 1, peca.cor, esquerda))
             movim.update(self._transversal_direita(linha + 1, min(linha + 3, Linhas), 1, peca.cor, direita))
 
@@ -81,26 +88,26 @@ class Tabuleiro:
     def _transversal_esquerda(self, start, stop, step, cor, esquerda, skipped=[]):
         moves = {}
         last = []
-        for r in range(start, stop, step):
+        for i in range(start, stop, step):
             if esquerda < 0:
                 break
 
-            current = self.tabuleiro[r][esquerda]
+            current = self.tabuleiro[i][esquerda]
             if current == 0:
                 if skipped and not last:
                     break
                 elif skipped:
-                    moves[(r, esquerda)] = last + skipped
+                    moves[(i, esquerda)] = last + skipped
                 else:
-                    moves[(r, esquerda)] = last
+                    moves[(i, esquerda)] = last
 
                 if last:
                     if step == -1:
-                        linha = max(r - 3, 0)
+                        linha = max(i - 3, 0)
                     else:
-                        linha = min(r + 3, Linhas)
-                    moves.update(self._transversal_esquerda(r + step, linha, step, cor, esquerda - 1, skipped=last))
-                    moves.update(self._transversal_direita(r + step, linha, step, cor, esquerda + 1, skipped=last))
+                        linha = min(i + 3, Linhas)
+                    moves.update(self._transversal_esquerda(i + step, linha, step, cor, esquerda - 1, skipped=last))
+                    moves.update(self._transversal_direita(i + step, linha, step, cor, esquerda + 1, skipped=last))
                 break
             elif current.cor == cor:
                 break
@@ -114,26 +121,26 @@ class Tabuleiro:
     def _transversal_direita(self, start, stop, step, cor, direita, skipped=[]):
         movim = {}
         last = []
-        for r in range(start, stop, step):
+        for i in range(start, stop, step):
             if direita >= Colunas:
                 break
 
-            current = self.tabuleiro[r][direita]
+            current = self.tabuleiro[i][direita]
             if current == 0:
                 if skipped and not last:
                     break
                 elif skipped:
-                    movim[(r, direita)] = last + skipped
+                    movim[(i, direita)] = last + skipped
                 else:
-                    movim[(r, direita)] = last
+                    movim[(i, direita)] = last
 
                 if last:
                     if step == -1:
-                        linha = max(r - 3, 0)
+                        linha = max(i - 3, 0)
                     else:
-                        linha = min(r + 3, Linhas)
-                    movim.update(self._transversal_esquerda(r + step, linha, step, cor, direita - 1, skipped=last))
-                    movim.update(self._transversal_direita(r + step, linha, step, cor, direita + 1, skipped=last))
+                        linha = min(i + 3, Linhas)
+                    movim.update(self._transversal_esquerda(i + step, linha, step, cor, direita - 1, skipped=last))
+                    movim.update(self._transversal_direita(i + step, linha, step, cor, direita + 1, skipped=last))
                 break
             elif current.cor == cor:
                 break
@@ -144,7 +151,7 @@ class Tabuleiro:
 
         return movim
     def avaliar(self):
-        return self.branco_esquerda - self.preto_esquerda
+        return self.branco_esquerda - self.preto_esquerda + (self.branco_kings * 0.5 - (self.preto_kings * 0.5))
     def contar_pecas(self, cor):
         pecas = []
         for linha in self.tabuleiro:
