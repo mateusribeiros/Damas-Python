@@ -53,7 +53,11 @@ class Jogo:
             self.rodada = branco
         else:
             self.rodada = preto
-
+    def pegar_tabuleiro(self):
+        return self.tabuleiro
+    def movimento_ia(self,tabuleiro):
+        self.tabuleiro = tabuleiro
+        self.mudar_rodada()
     def desenhar_ajuda(self, movimentos):
         for i in movimentos:
             linha, coluna = i

@@ -143,3 +143,12 @@ class Tabuleiro:
             direita += 1
 
         return movim
+    def avaliar(self):
+        return self.branco_esquerda - self.preto_esquerda
+    def contar_pecas(self, cor):
+        pecas = []
+        for linha in self.tabuleiro:
+            for peca in linha:
+                if peca != 0 and peca.cor == cor:
+                    pecas.append(peca)
+        return pecas
