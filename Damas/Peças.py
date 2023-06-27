@@ -20,7 +20,7 @@ class Pieces:
         pygame.draw.circle(surface, self.cor, (self.x,self.y), 30)
         pygame.draw.circle(surface, self.cor, (self.x,self.y), 30)
         if self.king:
-            surface.blit(UFG,(self.x - UFG.largura()//2, self.y - UFG.altura()//2))
+            surface.blit(UFG,(self.x - UFG.get_width()//2, self.y - UFG.get_height()//2))
     def mov(self,linha,coluna):
         self.linha = linha
         self.coluna = coluna
