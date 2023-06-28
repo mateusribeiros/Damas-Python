@@ -23,7 +23,7 @@ jogo = Jogo(tela)
 jogo_pausado = False
 
 def obter_estado_inicial():
-    global pos_iniciais_brancas, pos_iniciais_pretas, jogada_pretas
+    global pos_iniciais_brancas, pos_iniciais_pretas, vez_pretas
 
     pos_iniciais_brancas = [
         (0, 1), (0, 3), (0, 5), (0, 7),
@@ -41,12 +41,12 @@ def obter_estado_inicial():
 obter_estado_inicial()
 no_menu = True
 executando = True
-jogada_pretas = True
+vez_pretas = True
 while executando:
     if jogo.rodada == branco and not jogo_pausado:
         valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(),3,branco,jogo)
-
         jogo.movimento_ia(novo_tabuleiro)
+        vez_pretas = False
     if jogo.ganhador() != None:
         print(jogo.ganhador())
         executando = False
@@ -54,10 +54,8 @@ while executando:
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_F2):
             executando = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            no_menu = True
-            tela.blit(COMU, (0, 0))
-            pygame.display.update()
-            
+            jogo_pausado = not jogo_pausado
+
     if no_menu:
         fonte_titulo = pygame.font.Font(None, 76)
         fonte_texto = pygame.font.Font(None, 26)
@@ -86,15 +84,23 @@ while executando:
         if teclas_pressionadas[pygame.K_RETURN]:
             no_menu = False
     else:
-        tela.fill(preto)
-        tabuleiro.desenhar_quadrados(tela)
-        tabuleiro.desenhar(tela)
-
-        jogo.update()
-        
+        if not jogo_pausado:
+            tela.fill(preto)
+            tabuleiro.desenhar_quadrados(tela)
+            tabuleiro.desenhar(tela)
+            jogo.update()
+    
     if not tabuleiro.jogo_encerrado:
         if jogo.ganhador() != None:
             resultado = jogo.ganhador()
+
+            tela.fill(preto)
+            fonte_msg = pygame.font.Font(None, 80)
+            texto_msg = fonte_msg.render(resultado, True, branco)
+            ret_msg = texto_msg.get_rect(center=(largura // 2, altura // 2 - 125))
+
+            tela.blit(texto_msg, ret_msg)
+
             no_menu = True
     if event.type == pygame.MOUSEBUTTONDOWN and not jogo_pausado:
         pos = pygame.mouse.get_pos()
