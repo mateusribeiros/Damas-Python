@@ -63,7 +63,7 @@ class Tabuleiro:
                     self.preto_esquerda -= 1
                 else:
                     self.branco_esquerda -= 1
-
+                    
     def ganhador(self): 
 
         if self.preto_esquerda <= 0 or self.branco_esquerda <= 0:

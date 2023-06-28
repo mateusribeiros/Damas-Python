@@ -1,5 +1,5 @@
 import pygame
-from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja
+from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja, COMU
 from Peças import Pieces
 from Tela import Tabuleiro
 from Jogo import Jogo
@@ -53,7 +53,9 @@ while executando:
             executando = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             no_menu = True
-            tela.fill(preto)
+            tela.blit(COMU, (0, 0))
+            pygame.display.update()
+            
     if no_menu:
         fonte_titulo = pygame.font.Font(None, 76)
         fonte_texto = pygame.font.Font(None, 26)
@@ -85,6 +87,7 @@ while executando:
         tela.fill(preto)
         tabuleiro.desenhar_quadrados(tela)
         tabuleiro.desenhar(tela)
+
         jogo.update()
         
     if not tabuleiro.jogo_encerrado:
