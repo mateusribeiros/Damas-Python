@@ -23,7 +23,7 @@ jogo = Jogo(tela)
 
 
 def obter_estado_inicial():
-    global pos_iniciais_brancas, pos_iniciais_pretas
+    global pos_iniciais_brancas, pos_iniciais_pretas, jogada_pretas
 
     pos_iniciais_brancas = [
         (0, 1), (0, 3), (0, 5), (0, 7),
@@ -41,9 +41,12 @@ def obter_estado_inicial():
 obter_estado_inicial()
 no_menu = True
 executando = True
+jogada_pretas = True
 while executando:
     if jogo.rodada == branco:
         valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(),4,branco,jogo)
+        jogada_pretas = False
+
         jogo.movimento_ia(novo_tabuleiro)
     if jogo.ganhador() != None:
         print(jogo.ganhador())
@@ -55,7 +58,7 @@ while executando:
             no_menu = True
             tela.blit(COMU, (0, 0))
             pygame.display.update()
-            
+
     if no_menu:
         fonte_titulo = pygame.font.Font(None, 76)
         fonte_texto = pygame.font.Font(None, 26)
@@ -87,7 +90,7 @@ while executando:
         tela.fill(preto)
         tabuleiro.desenhar_quadrados(tela)
         tabuleiro.desenhar(tela)
-
+        
         jogo.update()
         
     if not tabuleiro.jogo_encerrado:
