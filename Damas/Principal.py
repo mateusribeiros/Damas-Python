@@ -1,5 +1,5 @@
 import pygame
-from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja, COMU
+from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja
 from Peças import Pieces
 from Tela import Tabuleiro
 from Jogo import Jogo
@@ -20,7 +20,7 @@ def mouse(pos):
 
 tabuleiro = Tabuleiro()
 jogo = Jogo(tela)
-
+jogo_pausado = False
 
 def obter_estado_inicial():
     global pos_iniciais_brancas, pos_iniciais_pretas, jogada_pretas
@@ -43,9 +43,8 @@ no_menu = True
 executando = True
 jogada_pretas = True
 while executando:
-    if jogo.rodada == branco:
-        valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(),4,branco,jogo)
-        jogada_pretas = False
+    if jogo.rodada == branco and not jogo_pausado:
+        valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(),3,branco,jogo)
 
         jogo.movimento_ia(novo_tabuleiro)
     if jogo.ganhador() != None:
@@ -58,7 +57,7 @@ while executando:
             no_menu = True
             tela.blit(COMU, (0, 0))
             pygame.display.update()
-
+            
     if no_menu:
         fonte_titulo = pygame.font.Font(None, 76)
         fonte_texto = pygame.font.Font(None, 26)
@@ -68,7 +67,7 @@ while executando:
         texto_salvar = fonte_texto.render("SALVAR PARTIDA (IMPLEMENTAR)", True, branco)
         texto_historico = fonte_texto.render("HISTÓRICO DE PARTIDAS (IMPLEMENTAR)", True, branco)
         texto_sair = fonte_texto.render("SAIR (F2)", True, branco)
-        texto_msg = fonte_texto.render("Durante a partida pressione ESC para retornar ao MENU", True, branco)
+        texto_msg = fonte_texto.render("Durante a partida pressione ESC para retornar ao PAUSAR O JOGO", True, branco)
 
         ret_titulo = texto_titulo.get_rect(center=(largura // 2, altura // 2 - 125))
         ret_novo = texto_novo.get_rect(center=(largura // 2, altura // 2 + 70))
@@ -90,25 +89,23 @@ while executando:
         tela.fill(preto)
         tabuleiro.desenhar_quadrados(tela)
         tabuleiro.desenhar(tela)
-        
+
         jogo.update()
         
     if not tabuleiro.jogo_encerrado:
         if jogo.ganhador() != None:
             resultado = jogo.ganhador()
-
-            tela.fill(preto)
-            fonte_msg = pygame.font.Font(None, 80)
-            texto_msg = fonte_msg.render(resultado, True, branco)
-            ret_msg = texto_msg.get_rect(center=(largura // 2, altura // 2 - 125))
-
-            tela.blit(texto_msg, ret_msg)
-
             no_menu = True
-    if event.type == pygame.MOUSEBUTTONDOWN:
+    if event.type == pygame.MOUSEBUTTONDOWN and not jogo_pausado:
         pos = pygame.mouse.get_pos()
         linha, coluna = mouse(pos)
         jogo.selecionar(linha, coluna)
+    if jogo_pausado:
+        fonte_texto = pygame.font.Font(None, 100)
+        texto_ps = fonte_texto.render("PAUSADO", True, laranja)
+        ret_ps = texto_ps.get_rect(center=(largura // 2, altura // 2))
+        tela.blit(texto_ps, ret_ps)
+
     pygame.display.flip()
     clock.tick(30)
 pygame.quit()

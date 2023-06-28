@@ -63,15 +63,19 @@ class Tabuleiro:
                     self.preto_esquerda -= 1
                 else:
                     self.branco_esquerda -= 1
-                    
-    def ganhador(self): 
 
+    def ganhador(self):
         if self.preto_esquerda <= 0 or self.branco_esquerda <= 0:
             self.jogo_encerrado = True
-
             return "VITÓRIA DOS BRANCOS!" if self.preto_esquerda <= 0 else "VITÓRIA DOS PRETOS"
-    
-        return None
+        elif len(self.contar_pecas(branco)) == 0:
+            self.jogo_encerrado = True
+            return "VITÓRIA DOS PRETOS"
+        elif len(self.contar_pecas(preto)) == 0:
+            self.jogo_encerrado = True
+            return "VITÓRIA DOS BRANCOS"
+        else:
+            return None
 
     def pegar_movimento_validos(self, peca):
         movim = {}
