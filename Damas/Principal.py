@@ -1,3 +1,5 @@
+import time
+
 import pygame
 from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja
 from Peças import Pieces
@@ -6,7 +8,7 @@ from Jogo import Jogo
 from IA import IA
 
 pygame.init()
-tela = pygame.display.set_mode((largura + 150, altura))
+tela = pygame.display.set_mode((largura + 180, altura))
 pygame.display.set_caption('Jogo de damas')
 clock = pygame.time.Clock()
 
@@ -96,9 +98,6 @@ while executando:
             jogo.update()
     
     if not tabuleiro.jogo_encerrado:
-        if not no_menu:
-            jogo.imprimir_Contagem(tela)
-
         if jogo.ganhador() != None:
             resultado = jogo.ganhador()
 
@@ -122,4 +121,5 @@ while executando:
 
     pygame.display.flip()
     clock.tick(30)
+time.sleep(5)
 pygame.quit()

@@ -9,7 +9,6 @@ class Tabuleiro:
         self.criar_tela()
         self.preto_esquerda = self.branco_esquerda = 12
         self.jogo_encerrado = False
-        
         self.preto_kings = self.branco_kings = 0
 
     def desenhar_quadrados(self, surface):
@@ -49,6 +48,42 @@ class Tabuleiro:
         ret_ps = pygame.draw.rect(surface, preto, (largura, 0, Tamanho * 3, Tamanho))
         text_rect = texto_ps.get_rect(center=ret_ps.center)
 
+        pretas = 12 - len(self.contar_pecas(preto))
+        brancas = 12 - len(self.contar_pecas(branco))
+
+        fonte = pygame.font.Font(None, 25)
+
+        textoF = fonte.render("Pretas capturadas", True, laranja)
+        retanguloF = pygame.draw.rect(surface, preto, (largura, 120, Tamanho * 3, Tamanho))
+        posF = textoF.get_rect(center=retanguloF.center)
+
+        textoP = fonte.render(str(pretas), True, laranja)
+        retanguloP = pygame.draw.rect(surface, preto, (largura, 150, Tamanho * 3, Tamanho))
+        posP = textoP.get_rect(center=retanguloP.center)
+
+        textoT = fonte.render("Brancas capturadas", True, laranja)
+        retanguloT = pygame.draw.rect(surface, preto, (largura, 220, Tamanho * 3, Tamanho))
+        posT = textoT.get_rect(center=retanguloT.center)
+
+        textoB = fonte.render(str(brancas), True, laranja)
+        retanguloB = pygame.draw.rect(surface, preto, (largura, 250, Tamanho * 3, Tamanho))
+        posB = textoB.get_rect(center=retanguloB.center)
+
+        textoPa = fonte.render("ESC = PAUSE", True, laranja)
+        retanguloPa = pygame.draw.rect(surface, preto, (largura, 550, Tamanho * 3, Tamanho))
+        posPa = textoPa.get_rect(center=retanguloPa.center)
+
+        textoS = fonte.render("S = SALVAR", True, laranja)
+        retanguloS = pygame.draw.rect(surface, preto, (largura, 500, Tamanho * 3, Tamanho))
+        posS = textoS.get_rect(center=retanguloS.center)
+
+        surface.blit(textoPa, posPa)
+        surface.blit(textoS, posS)
+        surface.blit(textoT, posT)
+        surface.blit(textoF, posF)
+        surface.blit(textoP, posP)
+        surface.blit(textoB, posB)
+
         surface.blit(texto_ps, text_rect)
 
     def mov(self, peca, linha, coluna):
@@ -73,20 +108,36 @@ class Tabuleiro:
                     self.preto_esquerda -= 1
                 else:
                     self.branco_esquerda -= 1
-    
-    def ganhador(self): 
+
+    def ganhador(self):
         if self.preto_esquerda <= 0 or self.branco_esquerda <= 0:
             self.jogo_encerrado = True
-
-            return "VITÓRIA DOS BRANCOS!" if self.preto_esquerda <= 0 else "VITÓRIA DOS PRETOS"
+            return "     VITÓRIA DOS BRANCOS!" if self.preto_esquerda <= 0 else "VITÓRIA DOS PRETOS"
         elif len(self.contar_pecas(branco)) == 0:
+            time.sleep(10)
+            return "     VITÓRIA DOS PRETOS"
             self.jogo_encerrado = True
-            return "VITÓRIA DOS PRETOS"
         elif len(self.contar_pecas(preto)) == 0:
+            time.sleep(10)
+            return "     VITÓRIA DOS BRANCOS"
             self.jogo_encerrado = True
-            return "VITÓRIA DOS BRANCOS"
         else:
-            return None
+            movimentos_possiveis = False
+            for linha in self.tabuleiro:
+                for peca in linha:
+                    if peca != 0 and peca.cor == branco:
+                        movimentos = self.pegar_movimento_validos(peca)
+                        if len(movimentos) > 0:
+                            movimentos_possiveis = True
+                            break
+                if movimentos_possiveis:
+                    break
+            if not movimentos_possiveis:
+                return "EMPATE - NÃO HÁ MAIS MOVIMENTOS POSSÍVEIS"
+                time.sleep(10)
+                self.jogo_encerrado = True
+            else:
+                return None
 
     def pegar_movimento_validos(self, peca):
         movim = {}
@@ -102,27 +153,7 @@ class Tabuleiro:
             movim.update(self._transversal_direita(linha + 1, min(linha + 3, Linhas), 1, peca.cor, direita))
 
         return movim
-    
-    def imprimir_Contagem(self, surface):
 
-        pretas = 12 - len(self.contar_pecas(preto))
-        brancas = 12 - len(self.contar_pecas(branco))
-
-        fonte = pygame.font.Font(None, 25)
-
-        textoP = fonte.render(str(pretas), True, laranja)
-        retanguloP = pygame.draw.rect(surface, preto, (largura, 100, Tamanho * 3, Tamanho))
-        posP = textoP.get_rect(center=retanguloP.center)
-
-        textoB = fonte.render(str(brancas), True, laranja)
-        retanguloB = pygame.draw.rect(surface, preto, (largura, 250, Tamanho * 3, Tamanho))
-        posB = textoB.get_rect(center=retanguloB.center)
-
-
-        surface.blit(textoP, posP)
-        surface.blit(textoB, posB)
-
-    
     def _transversal_esquerda(self, start, stop, step, cor, esquerda, skipped=[]):
         moves = {}
         last = []

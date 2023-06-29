@@ -1,3 +1,4 @@
+import time
 from copy import deepcopy
 import pygame
 from Variaveis import branco,preto
@@ -41,3 +42,4 @@ class IA:
                 novo_tabuleiro = IA.simular_mov(peca_tempor, mov, tabul_tempor, jogo, passar)
                 movs.append(novo_tabuleiro)
         return movs
+        time.sleep(300000)
