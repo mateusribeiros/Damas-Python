@@ -26,6 +26,9 @@ class Jogo:
     def ganhador(self):
         return self.tabuleiro.ganhador()
     
+    def imprimir_Contagem(self, surface):
+        return self.tabuleiro.imprimir_Contagem(surface)
+    
     def selecionar(self, linha, coluna):
         if self.selecionado:
             resultado = self._movimento(linha, coluna)

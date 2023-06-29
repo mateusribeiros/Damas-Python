@@ -1,6 +1,7 @@
 import pygame
-from Variaveis import branco, cinza, Linhas, Colunas, preto,Tamanho
+from Variaveis import branco, cinza, Linhas, Colunas, preto,Tamanho, largura, altura, laranja
 from Peças import Pieces
+import time
 
 class Tabuleiro:
     def __init__(self):
@@ -10,6 +11,7 @@ class Tabuleiro:
         self.jogo_encerrado = False
         
         self.preto_kings = self.branco_kings = 0
+
     def desenhar_quadrados(self, surface):
         for linha in range(Linhas):
             for coluna in range(Colunas):
@@ -42,6 +44,13 @@ class Tabuleiro:
                 if peca != 0:
                     peca.desenhar(surface)
 
+        fonte_texto = pygame.font.Font(None, 25)
+        texto_ps = fonte_texto.render("VEZ DAS PRETAS", True, laranja)
+        ret_ps = pygame.draw.rect(surface, preto, (largura, 0, Tamanho * 3, Tamanho))
+        text_rect = texto_ps.get_rect(center=ret_ps.center)
+
+        surface.blit(texto_ps, text_rect)
+
     def mov(self, peca, linha, coluna):
         self.tabuleiro[peca.linha][peca.coluna], self.tabuleiro[linha][coluna] = self.tabuleiro[linha][coluna], self.tabuleiro[peca.linha][peca.coluna]
         peca.mov(linha, coluna)
@@ -54,6 +63,7 @@ class Tabuleiro:
 
     def pegar_peca(self, linha, coluna):
         return self.tabuleiro[linha][coluna]
+
 
     def remover(self, pecas):
         for peca in pecas:
@@ -92,7 +102,27 @@ class Tabuleiro:
             movim.update(self._transversal_direita(linha + 1, min(linha + 3, Linhas), 1, peca.cor, direita))
 
         return movim
+    
+    def imprimir_Contagem(self, surface):
 
+        pretas = 12 - len(self.contar_pecas(preto))
+        brancas = 12 - len(self.contar_pecas(branco))
+
+        fonte = pygame.font.Font(None, 25)
+
+        textoP = fonte.render(str(pretas), True, laranja)
+        retanguloP = pygame.draw.rect(surface, preto, (largura, 100, Tamanho * 3, Tamanho))
+        posP = textoP.get_rect(center=retanguloP.center)
+
+        textoB = fonte.render(str(brancas), True, laranja)
+        retanguloB = pygame.draw.rect(surface, preto, (largura, 250, Tamanho * 3, Tamanho))
+        posB = textoB.get_rect(center=retanguloB.center)
+
+
+        surface.blit(textoP, posP)
+        surface.blit(textoB, posB)
+
+    
     def _transversal_esquerda(self, start, stop, step, cor, esquerda, skipped=[]):
         moves = {}
         last = []
@@ -160,6 +190,7 @@ class Tabuleiro:
         return movim
     def avaliar(self):
         return self.branco_esquerda - self.preto_esquerda + (self.branco_kings * 0.5 - (self.preto_kings * 0.5))
+    
     def contar_pecas(self, cor):
         pecas = []
         for linha in self.tabuleiro:

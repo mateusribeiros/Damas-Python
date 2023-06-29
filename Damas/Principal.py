@@ -6,7 +6,7 @@ from Jogo import Jogo
 from IA import IA
 
 pygame.init()
-tela = pygame.display.set_mode((largura, altura))
+tela = pygame.display.set_mode((largura + 150, altura))
 pygame.display.set_caption('Jogo de damas')
 clock = pygame.time.Clock()
 
@@ -16,7 +16,6 @@ def mouse(pos):
     linha = y // Tamanho
     coluna = x // Tamanho
     return linha, coluna
-
 
 tabuleiro = Tabuleiro()
 jogo = Jogo(tela)
@@ -37,16 +36,20 @@ def obter_estado_inicial():
         (7, 0), (7, 2), (7, 4), (7, 6),
     ]
 
+    vez_pretas = True
+
 
 obter_estado_inicial()
 no_menu = True
 executando = True
-vez_pretas = True
 while executando:
+
     if jogo.rodada == branco and not jogo_pausado:
         valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(),3,branco,jogo)
         jogo.movimento_ia(novo_tabuleiro)
         vez_pretas = False
+    if jogo.rodada == preto and not jogo_pausado:
+        vez_pretas = True
     if jogo.ganhador() != None:
         print(jogo.ganhador())
         executando = False
@@ -65,13 +68,13 @@ while executando:
         texto_salvar = fonte_texto.render("SALVAR PARTIDA (IMPLEMENTAR)", True, branco)
         texto_historico = fonte_texto.render("HISTÓRICO DE PARTIDAS (IMPLEMENTAR)", True, branco)
         texto_sair = fonte_texto.render("SAIR (F2)", True, branco)
-        texto_msg = fonte_texto.render("Durante a partida pressione ESC para retornar ao PAUSAR O JOGO", True, branco)
+        texto_msg = fonte_texto.render("Durante a partida pressione ESC para retornar ao PAUSAR O JOGO", True, laranja)
 
-        ret_titulo = texto_titulo.get_rect(center=(largura // 2, altura // 2 - 125))
-        ret_novo = texto_novo.get_rect(center=(largura // 2, altura // 2 + 70))
-        ret_salvar = texto_salvar.get_rect(center=(largura // 2, altura // 2 + 110))
-        ret_historico = texto_historico.get_rect(center=(largura // 2, altura // 2 + 150))
-        ret_sair = texto_sair.get_rect(center=(largura // 2, altura // 2 + 200))
+        ret_titulo = texto_titulo.get_rect(center=(largura // 1.70, altura // 2 - 150))
+        ret_novo = texto_novo.get_rect(center=(largura // 1.70, altura // 2))
+        ret_salvar = texto_salvar.get_rect(center=(largura // 1.70, altura // 2 + 50))
+        ret_historico = texto_historico.get_rect(center=(largura // 1.70, altura // 2 + 100))
+        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 150))
 
         tela.blit(texto_titulo, ret_titulo)
         tela.blit(texto_novo, ret_novo)
@@ -86,11 +89,16 @@ while executando:
     else:
         if not jogo_pausado:
             tela.fill(preto)
+
             tabuleiro.desenhar_quadrados(tela)
             tabuleiro.desenhar(tela)
+            
             jogo.update()
     
     if not tabuleiro.jogo_encerrado:
+        if not no_menu:
+            jogo.imprimir_Contagem(tela)
+
         if jogo.ganhador() != None:
             resultado = jogo.ganhador()
 
@@ -106,7 +114,7 @@ while executando:
         pos = pygame.mouse.get_pos()
         linha, coluna = mouse(pos)
         jogo.selecionar(linha, coluna)
-    if jogo_pausado:
+    if jogo_pausado and not no_menu:
         fonte_texto = pygame.font.Font(None, 100)
         texto_ps = fonte_texto.render("PAUSADO", True, laranja)
         ret_ps = texto_ps.get_rect(center=(largura // 2, altura // 2))
