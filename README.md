@@ -2,7 +2,10 @@
 
 Este projeto tem como objetivo desenvolver um jogo de Damas em que um jogador humano possa jogar contra uma inteligência artificial. A aplicação foi implementada em Python, utilizando a biblioteca Pygame para criar uma interface gráfica intuitiva e amigável.
 
+# MENU
 ![Menu do Jogo de Damas](./Imagem/designMenu.jpg)
+
+# TABULEIRO
 ![Menu do Jogo de Damas](./Imagem/designTabuleiro.jpg)
 
 ## Funcionalidades
