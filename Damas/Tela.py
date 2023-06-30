@@ -1,5 +1,5 @@
 import pygame
-from Variaveis import branco, cinza, Linhas, Colunas, preto,Tamanho, largura, altura, laranja
+from Variaveis import branco, Linhas, Colunas, preto,Tamanho, largura, laranja, MARROM, BRANCO, CINZA, LARANJA
 from Peças import Pieces
 import time
 
@@ -17,9 +17,9 @@ class Tabuleiro:
                 x = coluna * Tamanho
                 y = linha * Tamanho
                 if (linha + coluna) % 2 == 0:
-                    pygame.draw.rect(surface, branco, (x, y, Tamanho, Tamanho))
+                    pygame.draw.rect(surface, MARROM, (x, y, Tamanho, Tamanho))
                 else:
-                    pygame.draw.rect(surface, cinza, (x, y, Tamanho, Tamanho))
+                    pygame.draw.rect(surface, BRANCO, (x, y, Tamanho, Tamanho))
 
     def criar_tela(self):
         for linha in range(Linhas):
@@ -43,38 +43,43 @@ class Tabuleiro:
                 if peca != 0:
                     peca.desenhar(surface)
 
-        fonte_texto = pygame.font.Font(None, 25)
-        texto_ps = fonte_texto.render("VEZ DAS PRETAS", True, laranja)
+        fonte_texto = pygame.font.Font(None, 48)
+        texto_ps = fonte_texto.render("PRETAS", True, CINZA)
         ret_ps = pygame.draw.rect(surface, preto, (largura, 0, Tamanho * 3, Tamanho))
         text_rect = texto_ps.get_rect(center=ret_ps.center)
+
+        # Adicionando botão
+        botao_rect = pygame.draw.rect(surface, MARROM, (largura, 0,  Tamanho * 3, 800))
+        surface.blit(texto_ps, text_rect)
 
         pretas = 12 - len(self.contar_pecas(preto))
         brancas = 12 - len(self.contar_pecas(branco))
 
         fonte = pygame.font.Font(None, 25)
+        fonteCapture = pygame.font.Font(None, 20)
 
-        textoF = fonte.render("Pretas capturadas", True, laranja)
-        retanguloF = pygame.draw.rect(surface, preto, (largura, 120, Tamanho * 3, Tamanho))
+        textoF = fonteCapture.render("PRETAS CAPTURADAS", True, CINZA)
+        retanguloF = pygame.draw.rect(surface, MARROM, (largura, 150, Tamanho * 3, Tamanho))
         posF = textoF.get_rect(center=retanguloF.center)
 
-        textoP = fonte.render(str(pretas), True, laranja)
-        retanguloP = pygame.draw.rect(surface, preto, (largura, 150, Tamanho * 3, Tamanho))
+        textoP = fonte_texto.render(str(pretas), True, CINZA)
+        retanguloP = pygame.draw.rect(surface, MARROM, (largura, 180, Tamanho * 3, Tamanho))
         posP = textoP.get_rect(center=retanguloP.center)
 
-        textoT = fonte.render("Brancas capturadas", True, laranja)
-        retanguloT = pygame.draw.rect(surface, preto, (largura, 220, Tamanho * 3, Tamanho))
+        textoT = fonteCapture.render("BRANCAS CAPTURADAS", True, CINZA)
+        retanguloT = pygame.draw.rect(surface, MARROM, (largura, 300, Tamanho * 3, Tamanho))
         posT = textoT.get_rect(center=retanguloT.center)
 
-        textoB = fonte.render(str(brancas), True, laranja)
-        retanguloB = pygame.draw.rect(surface, preto, (largura, 250, Tamanho * 3, Tamanho))
+        textoB = fonte_texto.render(str(brancas), True, CINZA)
+        retanguloB = pygame.draw.rect(surface, MARROM, (largura, 325, Tamanho * 3, Tamanho))
         posB = textoB.get_rect(center=retanguloB.center)
 
-        textoPa = fonte.render("ESC = PAUSE", True, laranja)
-        retanguloPa = pygame.draw.rect(surface, preto, (largura, 550, Tamanho * 3, Tamanho))
+        textoPa = fonte.render("PAUSE(ESC)", True, LARANJA)
+        retanguloPa = pygame.draw.rect(surface, MARROM, (largura, 650, Tamanho * 3, Tamanho))
         posPa = textoPa.get_rect(center=retanguloPa.center)
 
-        textoS = fonte.render("S = SALVAR", True, laranja)
-        retanguloS = pygame.draw.rect(surface, preto, (largura, 500, Tamanho * 3, Tamanho))
+        textoS = fonte.render("SALVAR(S)", True, LARANJA)
+        retanguloS = pygame.draw.rect(surface, MARROM, (largura, 700, Tamanho * 3, Tamanho))
         posS = textoS.get_rect(center=retanguloS.center)
 
         surface.blit(textoPa, posPa)

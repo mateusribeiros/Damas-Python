@@ -1,5 +1,5 @@
 import pygame
-from Variaveis import preto, Tamanho, branco
+from Variaveis import preto, Tamanho, branco, LARANJA
 from Peças import Pieces
 from Tela import Tabuleiro
 
@@ -65,4 +65,4 @@ class Jogo:
     def desenhar_ajuda(self, movimentos):
         for i in movimentos:
             linha, coluna = i
-            pygame.draw.circle(self.superficie, (0,255,0),(coluna * Tamanho + Tamanho // 2, linha * Tamanho + Tamanho // 2), 10)
+            pygame.draw.circle(self.superficie, LARANJA,(coluna * Tamanho + Tamanho // 2, linha * Tamanho + Tamanho // 2), 10)

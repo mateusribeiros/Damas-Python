@@ -1,7 +1,7 @@
 import time
 
 import pygame
-from Variaveis import largura, altura, Tamanho, branco, preto, cinza, laranja
+from Variaveis import largura, altura, Tamanho, branco, preto, LARANJA, BRANCO
 from Peças import Pieces
 from Tela import Tabuleiro
 from Jogo import Jogo
@@ -62,28 +62,32 @@ while executando:
             jogo_pausado = not jogo_pausado
 
     if no_menu:
-        fonte_titulo = pygame.font.Font(None, 76)
-        fonte_texto = pygame.font.Font(None, 26)
+        imagem = pygame.image.load("../Imagem/chessboard.jpg") 
+        imagem_redimensionada = pygame.transform.scale(imagem, (1000, 800))
+        tela.blit(imagem_redimensionada, (0, 0))
+    
+        fonte_titulo = pygame.font.Font(None, 86)
+        fonte_texto = pygame.font.Font(None, 35)
 
-        texto_titulo = fonte_titulo.render("Jogo de Damas", True, branco)
+
+        texto_titulo = fonte_titulo.render("JOGO DE DAMAS", True, branco)
         texto_novo = fonte_texto.render("NOVO JOGO (ENTER)", True, branco)
         texto_salvar = fonte_texto.render("SALVAR PARTIDA (IMPLEMENTAR)", True, branco)
         texto_historico = fonte_texto.render("HISTÓRICO DE PARTIDAS (IMPLEMENTAR)", True, branco)
         texto_sair = fonte_texto.render("SAIR (F2)", True, branco)
-        texto_msg = fonte_texto.render("Durante a partida pressione ESC para retornar ao PAUSAR O JOGO", True, laranja)
 
-        ret_titulo = texto_titulo.get_rect(center=(largura // 1.70, altura // 2 - 150))
+        ret_titulo = texto_titulo.get_rect(center=(largura // 1.65, altura // 2 - 100))
         ret_novo = texto_novo.get_rect(center=(largura // 1.70, altura // 2))
-        ret_salvar = texto_salvar.get_rect(center=(largura // 1.70, altura // 2 + 50))
-        ret_historico = texto_historico.get_rect(center=(largura // 1.70, altura // 2 + 100))
-        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 150))
+        ret_salvar = texto_salvar.get_rect(center=(largura // 1.70, altura // 2 + 40))
+        ret_historico = texto_historico.get_rect(center=(largura // 1.70, altura // 2 + 80))
+
+        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 120))
 
         tela.blit(texto_titulo, ret_titulo)
         tela.blit(texto_novo, ret_novo)
         tela.blit(texto_salvar, ret_salvar)
         tela.blit(texto_historico, ret_historico)
         tela.blit(texto_sair, ret_sair)
-        tela.blit(texto_msg, (10, 750))
 
         teclas_pressionadas = pygame.key.get_pressed()
         if teclas_pressionadas[pygame.K_RETURN]:
@@ -115,7 +119,7 @@ while executando:
         jogo.selecionar(linha, coluna)
     if jogo_pausado and not no_menu:
         fonte_texto = pygame.font.Font(None, 100)
-        texto_ps = fonte_texto.render("PAUSADO", True, laranja)
+        texto_ps = fonte_texto.render("PAUSADO", True, LARANJA)
         ret_ps = texto_ps.get_rect(center=(largura // 2, altura // 2))
         tela.blit(texto_ps, ret_ps)
 

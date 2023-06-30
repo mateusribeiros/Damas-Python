@@ -42,4 +42,3 @@ class IA:
                 novo_tabuleiro = IA.simular_mov(peca_tempor, mov, tabul_tempor, jogo, passar)
                 movs.append(novo_tabuleiro)
         return movs
-        time.sleep(300000)
