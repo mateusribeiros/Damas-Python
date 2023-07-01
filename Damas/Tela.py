@@ -115,34 +115,29 @@ class Tabuleiro:
                     self.branco_esquerda -= 1
 
     def ganhador(self):
-        if self.preto_esquerda <= 0 or self.branco_esquerda <= 0:
+        if len(self.contar_pecas(branco)) == 0:
             self.jogo_encerrado = True
-            return "     VITÓRIA DOS BRANCOS!" if self.preto_esquerda <= 0 else "VITÓRIA DOS PRETOS"
-        elif len(self.contar_pecas(branco)) == 0:
-            time.sleep(10)
-            return "     VITÓRIA DOS PRETOS"
-            self.jogo_encerrado = True
+            return "          VITÓRIA DOS PRETOS"
         elif len(self.contar_pecas(preto)) == 0:
-            time.sleep(10)
-            return "     VITÓRIA DOS BRANCOS"
             self.jogo_encerrado = True
+            return "          VITÓRIA DOS BRANCOS"
         else:
-            movimentos_possiveis = False
             for linha in self.tabuleiro:
                 for peca in linha:
                     if peca != 0 and peca.cor == branco:
                         movimentos = self.pegar_movimento_validos(peca)
-                        if len(movimentos) > 0:
-                            movimentos_possiveis = True
-                            break
-                if movimentos_possiveis:
-                    break
-            if not movimentos_possiveis:
-                return "EMPATE - NÃO HÁ MAIS MOVIMENTOS POSSÍVEIS"
-                time.sleep(10)
-                self.jogo_encerrado = True
-            else:
-                return None
+                        if len(movimentos) == 0 and len(self.contar_pecas(branco)) != 0 and len(self.contar_pecas(preto)) != 0:
+                            return "EMPATE - NÃO HÁ MAIS MOVIMENTOS POSSÍVEIS"
+                        else:
+                            return None
+                    elif peca != 0 and peca.cor == preto:
+                        movimentos = self.pegar_movimento_validos(peca)
+                        if len(movimentos) == 0 and len(self.contar_pecas(preto)) != 0 and len(self.contar_pecas(branco)) != 0:
+                            return "EMPATE - NÃO HÁ MAIS MOVIMENTOS POSSÍVEIS"
+                        else:
+                            return None
+                    else:
+                        return None
 
     def pegar_movimento_validos(self, peca):
         movim = {}
