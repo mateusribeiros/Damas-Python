@@ -1,11 +1,12 @@
 import time
-
+import pickle
 import pygame
 from Variaveis import largura, altura, Tamanho, branco, preto, LARANJA, BRANCO
 from Peças import Pieces
 from Tela import Tabuleiro
 from Jogo import Jogo
 from IA import IA
+import os
 
 pygame.init()
 tela = pygame.display.set_mode((largura + 180, altura))
@@ -18,6 +19,7 @@ def mouse(pos):
     linha = y // Tamanho
     coluna = x // Tamanho
     return linha, coluna
+
 
 tabuleiro = Tabuleiro()
 jogo = Jogo(tela)
@@ -44,15 +46,16 @@ def obter_estado_inicial():
 obter_estado_inicial()
 no_menu = True
 executando = True
+
 while executando:
 
     if jogo.rodada == branco and not jogo_pausado:
-        valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(),3,branco,jogo)
+        valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(), 3, branco, jogo)
         jogo.movimento_ia(novo_tabuleiro)
         vez_pretas = False
     if jogo.rodada == preto and not jogo_pausado:
         vez_pretas = True
-    if jogo.ganhador() != None:
+    if jogo.ganhador() is not None:
         print(jogo.ganhador())
         executando = False
     for event in pygame.event.get():
@@ -60,32 +63,37 @@ while executando:
             executando = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             jogo_pausado = not jogo_pausado
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+            tabuleiro.salvar_jogo()
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_b:
+            tabuleiro.carregar_jogo_salvo(jogo)
 
     if no_menu:
-        imagem = pygame.image.load("../Imagem/chessboard.jpg") 
+        imagem = pygame.image.load("../Imagem/chessboard.jpg")
         imagem_redimensionada = pygame.transform.scale(imagem, (1000, 800))
         tela.blit(imagem_redimensionada, (0, 0))
-    
+
         fonte_titulo = pygame.font.Font(None, 86)
         fonte_texto = pygame.font.Font(None, 35)
 
-
         texto_titulo = fonte_titulo.render("JOGO DE DAMAS", True, branco)
         texto_novo = fonte_texto.render("NOVO JOGO (ENTER)", True, branco)
-        texto_salvar = fonte_texto.render("SALVAR PARTIDA (IMPLEMENTAR)", True, branco)
+        texto_salvar = fonte_texto.render("SALVAR PARTIDA (S)", True, branco)
+        texto_buscar = fonte_texto.render("BUSCAR SALVAMENTO (B)", True, branco)
         texto_historico = fonte_texto.render("HISTÓRICO DE PARTIDAS (IMPLEMENTAR)", True, branco)
         texto_sair = fonte_texto.render("SAIR (F2)", True, branco)
 
         ret_titulo = texto_titulo.get_rect(center=(largura // 1.65, altura // 2 - 100))
         ret_novo = texto_novo.get_rect(center=(largura // 1.70, altura // 2))
         ret_salvar = texto_salvar.get_rect(center=(largura // 1.70, altura // 2 + 40))
-        ret_historico = texto_historico.get_rect(center=(largura // 1.70, altura // 2 + 80))
-
-        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 120))
+        ret_buscar = texto_buscar.get_rect(center=(largura // 1.70, altura // 2 + 80))
+        ret_historico = texto_historico.get_rect(center=(largura // 1.70, altura // 2 + 120))
+        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 160))
 
         tela.blit(texto_titulo, ret_titulo)
         tela.blit(texto_novo, ret_novo)
         tela.blit(texto_salvar, ret_salvar)
+        tela.blit(texto_buscar, ret_buscar)
         tela.blit(texto_historico, ret_historico)
         tela.blit(texto_sair, ret_sair)
 
@@ -95,23 +103,18 @@ while executando:
     else:
         if not jogo_pausado:
             tela.fill(preto)
-
             tabuleiro.desenhar_quadrados(tela)
             tabuleiro.desenhar(tela)
-            
             jogo.update()
-    
-    if not tabuleiro.jogo_encerrado:
-        if jogo.ganhador() != None:
-            resultado = jogo.ganhador()
 
+    if not tabuleiro.jogo_encerrado:
+        if jogo.ganhador() is not None:
+            resultado = jogo.ganhador()
             tela.fill(preto)
             fonte_msg = pygame.font.Font(None, 80)
             texto_msg = fonte_msg.render(resultado, True, branco)
             ret_msg = texto_msg.get_rect(center=(largura // 2, altura // 2 - 125))
-
             tela.blit(texto_msg, ret_msg)
-
             no_menu = True
     if event.type == pygame.MOUSEBUTTONDOWN and not jogo_pausado:
         pos = pygame.mouse.get_pos()

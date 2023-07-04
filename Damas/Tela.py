@@ -1,3 +1,4 @@
+import pickle
 import pygame
 from Variaveis import branco, Linhas, Colunas, preto,Tamanho, largura, laranja, MARROM, BRANCO, CINZA, LARANJA
 from Peças import Pieces
@@ -10,6 +11,7 @@ class Tabuleiro:
         self.preto_esquerda = self.branco_esquerda = 12
         self.jogo_encerrado = False
         self.preto_kings = self.branco_kings = 0
+        self.jogo_salvo = False
 
     def desenhar_quadrados(self, surface):
         for linha in range(Linhas):
@@ -48,7 +50,6 @@ class Tabuleiro:
         ret_ps = pygame.draw.rect(surface, preto, (largura, 0, Tamanho * 3, Tamanho))
         text_rect = texto_ps.get_rect(center=ret_ps.center)
 
-        # Adicionando botão
         botao_rect = pygame.draw.rect(surface, MARROM, (largura, 0,  Tamanho * 3, 800))
         surface.blit(texto_ps, text_rect)
 
@@ -88,8 +89,34 @@ class Tabuleiro:
         surface.blit(textoF, posF)
         surface.blit(textoP, posP)
         surface.blit(textoB, posB)
-
         surface.blit(texto_ps, text_rect)
+    #carregamento do arquivo onde salvou o jogo
+    def carregar_jogo_salvo(self, surface):
+        try:
+            with open("jogo_salvo.pkl", "rb") as file:
+                data = pickle.load(file)
+                self.tabuleiro = data["tabuleiro"]
+                self.preto_esquerda = data["preto_esquerda"]
+                self.branco_esquerda = data["branco_esquerda"]
+                self.jogo_encerrado = data["jogo_encerrado"]
+                self.preto_kings = data["preto_kings"]
+                self.branco_kings = data["branco_kings"]
+                self.jogo_salvo = False
+        except FileNotFoundError:
+            self.jogo_salvo = False
+    #salvamento do arquivo e das peças
+    def salvar_jogo(self):
+        data = {
+            "tabuleiro": self.tabuleiro,
+            "preto_esquerda": self.preto_esquerda,
+            "branco_esquerda": self.branco_esquerda,
+            "jogo_encerrado": self.jogo_encerrado,
+            "preto_kings": self.preto_kings,
+            "branco_kings": self.branco_kings
+        }
+        with open("jogo_salvo.pkl", "wb") as file:
+            pickle.dump(data, file)
+        self.jogo_salvo = True
 
     def mov(self, peca, linha, coluna):
         self.tabuleiro[peca.linha][peca.coluna], self.tabuleiro[linha][coluna] = self.tabuleiro[linha][coluna], self.tabuleiro[peca.linha][peca.coluna]
@@ -103,8 +130,6 @@ class Tabuleiro:
 
     def pegar_peca(self, linha, coluna):
         return self.tabuleiro[linha][coluna]
-
-
     def remover(self, pecas):
         for peca in pecas:
             self.tabuleiro[peca.linha][peca.coluna] = 0
@@ -144,48 +169,41 @@ class Tabuleiro:
         esquerda = peca.coluna - 1
         direita = peca.coluna + 1
         linha = peca.linha
-
         if peca.cor == preto or peca.king:
             movim.update(self._transversal_esquerda(linha - 1, max(linha - 3, -1), -1, peca.cor, esquerda))
             movim.update(self._transversal_direita(linha - 1, max(linha - 3, -1), -1, peca.cor, direita))
         if peca.cor == branco or peca.king:
             movim.update(self._transversal_esquerda(linha + 1, min(linha + 3, Linhas), 1, peca.cor, esquerda))
             movim.update(self._transversal_direita(linha + 1, min(linha + 3, Linhas), 1, peca.cor, direita))
-
         return movim
-
     def _transversal_esquerda(self, start, stop, step, cor, esquerda, skipped=[]):
-        moves = {}
+        movim = {}
         last = []
         for i in range(start, stop, step):
             if esquerda < 0:
                 break
-
             current = self.tabuleiro[i][esquerda]
             if current == 0:
                 if skipped and not last:
                     break
                 elif skipped:
-                    moves[(i, esquerda)] = last + skipped
+                    movim[(i, esquerda)] = last + skipped
                 else:
-                    moves[(i, esquerda)] = last
-
+                    movim[(i, esquerda)] = last
                 if last:
                     if step == -1:
                         linha = max(i - 3, 0)
                     else:
                         linha = min(i + 3, Linhas)
-                    moves.update(self._transversal_esquerda(i + step, linha, step, cor, esquerda - 1, skipped=last))
-                    moves.update(self._transversal_direita(i + step, linha, step, cor, esquerda + 1, skipped=last))
+                    movim.update(self._transversal_esquerda(i + step, linha, step, cor, esquerda - 1, skipped=last))
+                    movim.update(self._transversal_direita(i + step, linha, step, cor, esquerda + 1, skipped=last))
                 break
             elif current.cor == cor:
                 break
             else:
                 last = [current]
-
             esquerda -= 1
-
-        return moves
+        return movim
 
     def _transversal_direita(self, start, stop, step, cor, direita, skipped=[]):
         movim = {}
@@ -217,7 +235,6 @@ class Tabuleiro:
                 last = [current]
 
             direita += 1
-
         return movim
     def avaliar(self):
         return self.branco_esquerda - self.preto_esquerda + (self.branco_kings * 0.5 - (self.preto_kings * 0.5))

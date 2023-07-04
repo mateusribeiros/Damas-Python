@@ -1,4 +1,5 @@
 import pygame
+import pickle
 from Variaveis import preto, Tamanho, branco, LARANJA
 from Peças import Pieces
 from Tela import Tabuleiro
@@ -20,7 +21,6 @@ class Jogo:
         self.selecionado = None
         self.tabuleiro = Tabuleiro()
         self.rodada = preto
-
         self.valido_mov = {}
     
     def ganhador(self):
