@@ -50,7 +50,7 @@ executando = True
 while executando:
 
     if jogo.rodada == branco and not jogo_pausado:
-        valor, novo_tabuleiro = IA.minimax(jogo.pegar_tabuleiro(), 3, branco, jogo)
+        valor, novo_tabuleiro = IA().minimax(jogo.pegar_tabuleiro(), 3, branco,jogo)
         jogo.movimento_ia(novo_tabuleiro)
         vez_pretas = False
     if jogo.rodada == preto and not jogo_pausado:
@@ -63,7 +63,7 @@ while executando:
             executando = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             jogo_pausado = not jogo_pausado
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_1:
             tabuleiro.salvar_jogo()
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_b:
             tabuleiro.carregar_jogo_salvo(jogo)
