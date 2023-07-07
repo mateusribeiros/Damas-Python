@@ -53,3 +53,4 @@ class IA:
         jogo.desenhar_ajuda(valido_movim.keys())
         pygame.display.update()
         pygame.time.delay(50)
+

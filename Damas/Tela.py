@@ -1,8 +1,6 @@
-import pickle
 import pygame
-from Variaveis import branco, Linhas, Colunas, preto,Tamanho, largura, laranja, MARROM, BRANCO, CINZA, LARANJA
+from Variaveis import branco, Linhas, Colunas, preto,Tamanho, largura, MARROM, BRANCO, CINZA, LARANJA
 from Peças import Pieces
-import time
 
 class Tabuleiro:
     def __init__(self):
@@ -102,6 +100,7 @@ class Tabuleiro:
 
     def pegar_peca(self, linha, coluna):
         return self.tabuleiro[linha][coluna]
+    
     def remover(self, pecas):
         for peca in pecas:
             self.tabuleiro[peca.linha][peca.coluna] = 0
@@ -148,6 +147,7 @@ class Tabuleiro:
             movim.update(self._transversal_esquerda(linha + 1, min(linha + 3, Linhas), 1, peca.cor, esquerda))
             movim.update(self._transversal_direita(linha + 1, min(linha + 3, Linhas), 1, peca.cor, direita))
         return movim
+    
     def _transversal_esquerda(self, start, stop, step, cor, esquerda, skipped=[]):
         movim = {}
         last = []
@@ -217,4 +217,5 @@ class Tabuleiro:
             for peca in linha:
                 if peca != 0 and peca.cor == cor:
                     pecas.append(peca)
+
         return pecas
