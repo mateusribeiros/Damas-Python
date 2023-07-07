@@ -219,3 +219,23 @@ class Tabuleiro:
                     pecas.append(peca)
 
         return pecas
+    
+    def imprimir(self, tabuleiro):
+        try:
+            lista_matriz = []
+            for i in range(8):
+                linha = []
+                for j in range(8):
+                    if len(str(tabuleiro.tabuleiro[i][j])) > 1:
+                        linha.append("P")
+                    else:
+                        linha.append("-")
+                lista_matriz.append(linha)
+
+            for i in range(8):
+                for j in range(8):
+                    print(lista_matriz[i][j], end=' ')
+                print()
+        except FileNotFoundError:
+            print('FALHA AO IMPRIMIR')
+        self.jogo_salvo = True

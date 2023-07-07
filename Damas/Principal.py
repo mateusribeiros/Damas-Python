@@ -67,6 +67,10 @@ while executando:
             quit()
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_t:
             jogo.load_game()
+            no_menu = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_b:
+            tabuleiro.imprimir(novo_tabuleiro)
+
 
     if no_menu:
         imagem = pygame.image.load("../Imagem/chessboard.jpg")
@@ -79,20 +83,23 @@ while executando:
         texto_titulo = fonte_titulo.render("JOGO DE DAMAS", True, branco)
         texto_novo = fonte_texto.render("NOVO JOGO (ENTER)", True, branco)
         texto_salvar = fonte_texto.render("SALVAR PARTIDA (S)", True, branco)
-        texto_buscar = fonte_texto.render("BUSCAR SALVAMENTO (B)", True, branco)
+        texto_buscar = fonte_texto.render("BUSCAR SALVAMENTO (T)", True, branco)
+        texto_imprimir = fonte_texto.render("IMPRIMIR A PARTIDA (B)", True, branco)
         texto_sair = fonte_texto.render("SAIR (F2)", True, branco)
 
         ret_titulo = texto_titulo.get_rect(center=(largura // 1.65, altura // 2 - 100))
         ret_novo = texto_novo.get_rect(center=(largura // 1.70, altura // 2))
         ret_salvar = texto_salvar.get_rect(center=(largura // 1.70, altura // 2 + 40))
         ret_buscar = texto_buscar.get_rect(center=(largura // 1.70, altura // 2 + 80))
-        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 120))
+        ret_imprimir = texto_imprimir.get_rect(center=(largura // 1.70, altura // 2 + 120))
+        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 160))
 
         tela.blit(texto_titulo, ret_titulo)
         tela.blit(texto_novo, ret_novo)
         tela.blit(texto_salvar, ret_salvar)
         tela.blit(texto_buscar, ret_buscar)
         tela.blit(texto_sair, ret_sair)
+        tela.blit(texto_imprimir, ret_imprimir)
 
         teclas_pressionadas = pygame.key.get_pressed()
         if teclas_pressionadas[pygame.K_RETURN]:
