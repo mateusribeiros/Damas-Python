@@ -62,8 +62,12 @@ while executando:
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             jogo_pausado = not jogo_pausado
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+            jogo.save_game()
+            pygame.quit()
+            quit()
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_t:
             jogo.load_game()
-            executando = False
+
     if no_menu:
         imagem = pygame.image.load("../Imagem/chessboard.jpg")
         imagem_redimensionada = pygame.transform.scale(imagem, (1000, 800))
