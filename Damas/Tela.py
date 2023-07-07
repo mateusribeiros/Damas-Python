@@ -90,37 +90,6 @@ class Tabuleiro:
         surface.blit(textoP, posP)
         surface.blit(textoB, posB)
         surface.blit(texto_ps, text_rect)
-    #carregamento do arquivo onde salvou o jogo
-    def carregar_jogo_salvo(self, surface):
-        try:
-            with open("jogo_salvo.pkl", "rb") as file:
-                data = pickle.load(file)
-                self.tabuleiro = data["tabuleiro"]
-                self.preto_esquerda = data["preto_esquerda"]
-                self.branco_esquerda = data["branco_esquerda"]
-                self.jogo_encerrado = data["jogo_encerrado"]
-                self.preto_kings = data["preto_kings"]
-                self.branco_kings = data["branco_kings"]
-                self.jogo_salvo = False
-                print('Abrindo arquivo')
-        except FileNotFoundError:
-            self.jogo_salvo = False
-            print('Não existe arquivo')
-    #salvamento do arquivo e das peças
-    def salvar_jogo(self):
-        data = {
-            "tabuleiro": self.tabuleiro,
-            "preto_esquerda": self.preto_esquerda,
-            "branco_esquerda": self.branco_esquerda,
-            "jogo_encerrado": self.jogo_encerrado,
-            "preto_kings": self.preto_kings,
-            "branco_kings": self.branco_kings
-        }
-        with open("jogo_salvo.pkl", "wb") as file:
-            pickle.dump(data, file)
-        self.jogo_salvo = True
-        print('Jogo salvo com sucesso')
-
     def mov(self, peca, linha, coluna):
         self.tabuleiro[peca.linha][peca.coluna], self.tabuleiro[linha][coluna] = self.tabuleiro[linha][coluna], self.tabuleiro[peca.linha][peca.coluna]
         peca.mov(linha, coluna)
