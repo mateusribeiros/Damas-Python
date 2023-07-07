@@ -102,8 +102,10 @@ class Tabuleiro:
                 self.preto_kings = data["preto_kings"]
                 self.branco_kings = data["branco_kings"]
                 self.jogo_salvo = False
+                print('Abrindo arquivo')
         except FileNotFoundError:
             self.jogo_salvo = False
+            print('Não existe arquivo')
     #salvamento do arquivo e das peças
     def salvar_jogo(self):
         data = {
@@ -117,6 +119,7 @@ class Tabuleiro:
         with open("jogo_salvo.pkl", "wb") as file:
             pickle.dump(data, file)
         self.jogo_salvo = True
+        print('Jogo salvo com sucesso')
 
     def mov(self, peca, linha, coluna):
         self.tabuleiro[peca.linha][peca.coluna], self.tabuleiro[linha][coluna] = self.tabuleiro[linha][coluna], self.tabuleiro[peca.linha][peca.coluna]
@@ -238,7 +241,7 @@ class Tabuleiro:
         return movim
     def avaliar(self):
         return self.branco_esquerda - self.preto_esquerda + (self.branco_kings * 0.5 - (self.preto_kings * 0.5))
-    
+
     def contar_pecas(self, cor):
         pecas = []
         for linha in self.tabuleiro:

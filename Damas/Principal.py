@@ -63,10 +63,9 @@ while executando:
             executando = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             jogo_pausado = not jogo_pausado
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_1:
-            tabuleiro.salvar_jogo()
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_b:
-            tabuleiro.carregar_jogo_salvo(jogo)
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+            jogo.load_game()
+            executando = False
 
     if no_menu:
         imagem = pygame.image.load("../Imagem/chessboard.jpg")
@@ -120,6 +119,8 @@ while executando:
         pos = pygame.mouse.get_pos()
         linha, coluna = mouse(pos)
         jogo.selecionar(linha, coluna)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_F1:
+            tabuleiro.carregar_jogo_salvo(jogo)
     if jogo_pausado and not no_menu:
         fonte_texto = pygame.font.Font(None, 100)
         texto_ps = fonte_texto.render("PAUSADO", True, LARANJA)

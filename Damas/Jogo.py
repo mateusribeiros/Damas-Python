@@ -66,3 +66,24 @@ class Jogo:
         for i in movimentos:
             linha, coluna = i
             pygame.draw.circle(self.superficie, LARANJA,(coluna * Tamanho + Tamanho // 2, linha * Tamanho + Tamanho // 2), 10)
+
+    def save_game(self):
+        game_state = {
+            'rodada': self.rodada,
+            'tabuleiro': self.tabuleiro,
+        }
+        with open("saved_game.pickle", "wb") as file:
+            pickle.dump(game_state, file)
+        print("Jogo salvo com sucesso.")
+
+    def load_game(self):
+        try:
+            with open("saved_game.pickle", "rb") as file:
+                jogo_estado = pickle.load(file)
+                tabuleiro_estado = jogo_estado['tabuleiro']
+                rodada = jogo_estado['rodada']
+                self.tabuleiro = tabuleiro
+                self.rodada = rodada
+                print("Jogo carregado com sucesso.")
+        except FileNotFoundError:
+            print("Nenhum jogo salvo encontrado.")
