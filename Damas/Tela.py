@@ -74,8 +74,12 @@ class Tabuleiro:
         posB = textoB.get_rect(center=retanguloB.center)
 
         textoPa = fonte.render("PAUSE(ESC)", True, LARANJA)
-        retanguloPa = pygame.draw.rect(surface, MARROM, (largura, 650, Tamanho * 3, Tamanho))
+        retanguloPa = pygame.draw.rect(surface, MARROM, (largura, 600, Tamanho * 3, Tamanho))
         posPa = textoPa.get_rect(center=retanguloPa.center)
+
+        textoImprimir = fonte.render("Imprimir(B)", True, LARANJA)
+        retanguloImprimir = pygame.draw.rect(surface, MARROM, (largura, 650, Tamanho * 3, Tamanho))
+        posImprimir = textoImprimir.get_rect(center=retanguloImprimir.center)
 
         textoS = fonte.render("SALVAR(S)", True, LARANJA)
         retanguloS = pygame.draw.rect(surface, MARROM, (largura, 700, Tamanho * 3, Tamanho))
@@ -87,6 +91,7 @@ class Tabuleiro:
         surface.blit(textoF, posF)
         surface.blit(textoP, posP)
         surface.blit(textoB, posB)
+        surface.blit(textoImprimir, posImprimir)
         surface.blit(texto_ps, text_rect)
     def mov(self, peca, linha, coluna):
         self.tabuleiro[peca.linha][peca.coluna], self.tabuleiro[linha][coluna] = self.tabuleiro[linha][coluna], self.tabuleiro[peca.linha][peca.coluna]
@@ -236,6 +241,8 @@ class Tabuleiro:
                 for j in range(8):
                     print(lista_matriz[i][j], end=' ')
                 print()
+            print()
+
         except FileNotFoundError:
             print('FALHA AO IMPRIMIR')
         self.jogo_salvo = True
