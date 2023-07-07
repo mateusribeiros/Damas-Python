@@ -1,8 +1,6 @@
-import pickle
 import pygame
-from Variaveis import branco, Linhas, Colunas, preto,Tamanho, largura, laranja, MARROM, BRANCO, CINZA, LARANJA
+from Variaveis import branco, Linhas, Colunas, preto,Tamanho, largura, MARROM, BRANCO, CINZA, LARANJA
 from Peças import Pieces
-import time
 
 class Tabuleiro:
     def __init__(self):
@@ -90,33 +88,37 @@ class Tabuleiro:
         surface.blit(textoP, posP)
         surface.blit(textoB, posB)
         surface.blit(texto_ps, text_rect)
-    #carregamento do arquivo onde salvou o jogo
-    def carregar_jogo_salvo(self, surface):
+    
+    # carregamento do arquivo onde salvou o jogo
+
+    def carregar_jogo_salvo(self):
         try:
-            with open("jogo_salvo.pkl", "rb") as file:
-                data = pickle.load(file)
-                self.tabuleiro = data["tabuleiro"]
-                self.preto_esquerda = data["preto_esquerda"]
-                self.branco_esquerda = data["branco_esquerda"]
-                self.jogo_encerrado = data["jogo_encerrado"]
-                self.preto_kings = data["preto_kings"]
-                self.branco_kings = data["branco_kings"]
-                self.jogo_salvo = False
+           matriz = self.tabuleiro
+           np.savetxt('tabuleiro.txt', matriz)
         except FileNotFoundError:
-            self.jogo_salvo = False
+            print('FALHA AO SALVAR')
+
     #salvamento do arquivo e das peças
-    def salvar_jogo(self):
-        data = {
-            "tabuleiro": self.tabuleiro,
-            "preto_esquerda": self.preto_esquerda,
-            "branco_esquerda": self.branco_esquerda,
-            "jogo_encerrado": self.jogo_encerrado,
-            "preto_kings": self.preto_kings,
-            "branco_kings": self.branco_kings
-        }
-        with open("jogo_salvo.pkl", "wb") as file:
-            pickle.dump(data, file)
+
+    def salvar_jogo(self, tabuleiro):
+        try:
+            lista_matriz = []
+            for i in range(8):
+                linha = []
+                for j in range(8):
+                    if len(str(tabuleiro.tabuleiro[i][j])) > 1:
+                        linha.append("P")
+                    else:
+                        linha.append("-")
+                lista_matriz.append(linha)
+
+            with open('tabuleiro.txt', 'w') as arquivo:
+                for linha in lista_matriz:
+                    arquivo.write(' '.join(linha) + '\n')
+        except FileNotFoundError:
+            print('FALHA AO SALVAR')
         self.jogo_salvo = True
+
 
     def mov(self, peca, linha, coluna):
         self.tabuleiro[peca.linha][peca.coluna], self.tabuleiro[linha][coluna] = self.tabuleiro[linha][coluna], self.tabuleiro[peca.linha][peca.coluna]
@@ -130,6 +132,7 @@ class Tabuleiro:
 
     def pegar_peca(self, linha, coluna):
         return self.tabuleiro[linha][coluna]
+    
     def remover(self, pecas):
         for peca in pecas:
             self.tabuleiro[peca.linha][peca.coluna] = 0
@@ -176,6 +179,7 @@ class Tabuleiro:
             movim.update(self._transversal_esquerda(linha + 1, min(linha + 3, Linhas), 1, peca.cor, esquerda))
             movim.update(self._transversal_direita(linha + 1, min(linha + 3, Linhas), 1, peca.cor, direita))
         return movim
+    
     def _transversal_esquerda(self, start, stop, step, cor, esquerda, skipped=[]):
         movim = {}
         last = []
@@ -245,4 +249,5 @@ class Tabuleiro:
             for peca in linha:
                 if peca != 0 and peca.cor == cor:
                     pecas.append(peca)
+
         return pecas

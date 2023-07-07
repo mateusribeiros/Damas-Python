@@ -52,4 +52,4 @@ class IA:
         pygame.draw.circle(jogo.superficie, (0, 0, 255), (peca.x, peca.y), 50, 10)
         jogo.desenhar_ajuda(valido_movim.keys())
         pygame.display.update()
-        pygame.time.delay(100)
+        pygame.time.delay(5)

@@ -1,12 +1,10 @@
 import time
-import pickle
-import pygame
-from Variaveis import largura, altura, Tamanho, branco, preto, LARANJA, BRANCO
+from Variaveis import largura, altura, Tamanho, branco, preto, LARANJA
 from Peças import Pieces
 from Tela import Tabuleiro
+import pygame
 from Jogo import Jogo
 from IA import IA
-import os
 
 pygame.init()
 tela = pygame.display.set_mode((largura + 180, altura))
@@ -63,9 +61,9 @@ while executando:
             executando = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             jogo_pausado = not jogo_pausado
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_1:
-            tabuleiro.salvar_jogo()
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_b:
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_s:
+            tabuleiro.salvar_jogo(novo_tabuleiro)
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_t:
             tabuleiro.carregar_jogo_salvo(jogo)
 
     if no_menu:
@@ -80,21 +78,18 @@ while executando:
         texto_novo = fonte_texto.render("NOVO JOGO (ENTER)", True, branco)
         texto_salvar = fonte_texto.render("SALVAR PARTIDA (S)", True, branco)
         texto_buscar = fonte_texto.render("BUSCAR SALVAMENTO (B)", True, branco)
-        texto_historico = fonte_texto.render("HISTÓRICO DE PARTIDAS (IMPLEMENTAR)", True, branco)
         texto_sair = fonte_texto.render("SAIR (F2)", True, branco)
 
         ret_titulo = texto_titulo.get_rect(center=(largura // 1.65, altura // 2 - 100))
         ret_novo = texto_novo.get_rect(center=(largura // 1.70, altura // 2))
         ret_salvar = texto_salvar.get_rect(center=(largura // 1.70, altura // 2 + 40))
         ret_buscar = texto_buscar.get_rect(center=(largura // 1.70, altura // 2 + 80))
-        ret_historico = texto_historico.get_rect(center=(largura // 1.70, altura // 2 + 120))
-        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 160))
+        ret_sair = texto_sair.get_rect(center=(largura // 1.70, altura // 2 + 120))
 
         tela.blit(texto_titulo, ret_titulo)
         tela.blit(texto_novo, ret_novo)
         tela.blit(texto_salvar, ret_salvar)
         tela.blit(texto_buscar, ret_buscar)
-        tela.blit(texto_historico, ret_historico)
         tela.blit(texto_sair, ret_sair)
 
         teclas_pressionadas = pygame.key.get_pressed()
