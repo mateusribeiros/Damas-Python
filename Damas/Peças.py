@@ -1,5 +1,5 @@
 import pygame
-from Variaveis import preto,Tamanho,branco,UFG
+from Variaveis import Tamanho,UFG
 
 class Pieces:
 
