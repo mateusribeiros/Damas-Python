@@ -3,10 +3,10 @@
 This project aims to develop a Checkers game where a human player can play against an artificial intelligence. The application was implemented in Python, using the Pygame library to create an intuitive and user-friendly graphical interface.
 
 # MENU
-![Checkers Game Menu](./Image/designMenu.jpg)
+<img width="100px" src="./Imagem/designMenu.jpg" alt="DESIGN MENU" target="_blank">
 
 # GAME BOARD
-![Checkers Game Board](./Image/designTabuleiro.jpg)
+<img width="100px" src="./Imagem/designTabuleiro.jpg" alt="DESIGN CHESSBOARD" target="_blank">
 
 ## Features
 
@@ -28,7 +28,7 @@ The highlight of this project is the presence of an artificial intelligence that
 
 ## Contributors
 
-This project was developed in collaboration by ![Isabela de Queiroz](https://github.com/isabela-code), Mateus Ribeiro, and ![Fabrício Silva](https://github.com/FafizDev). Each member contributed their skills and knowledge to make this Checkers game with artificial intelligence a reality.
+This project was developed in collaboration by <a href="https://github.com/isabela-code"> Isabela de Queiroz</a>, Mateus Ribeiro and <a href="https://github.com/FafizDev"> Fabricio Silva </a>. Each member contributed their skills and knowledge to make this Checkers game with artificial intelligence a reality.
 
 ## How to Run the Game
 

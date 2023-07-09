@@ -1,11 +1,13 @@
-# ![ENGLISH README](ENREADME.md)
+<a href="ENREADME.md">
+    <img width="12px" src="https://cdn-icons-png.flaticon.com/512/1377/1377975.png" alt="English readme" target="_blank">
+</a>
 
 # Jogo de Damas com Inteligência Artificial
 
 Este projeto tem como objetivo desenvolver um jogo de Damas em que um jogador humano possa jogar contra uma inteligência artificial. A aplicação foi implementada em Python, utilizando a biblioteca Pygame para criar uma interface gráfica intuitiva e amigável.
 
 # MENU
-![Menu do Jogo de Damas](./Imagem/designMenu.jpg)
+
 
 # TABULEIRO
 ![Menu do Jogo de Damas](./Imagem/designTabuleiro.jpg)
@@ -30,7 +32,7 @@ O destaque deste projeto é a presença de uma inteligência artificial que joga
 
 ## Colaboradores
 
-Este projeto foi desenvolvido em colaboração por ![Isabela de Queiroz](https://github.com/isabela-code), Mateus Ribeiro e ![Fabrício Silva](https://github.com/FafizDev). Cada membro contribuiu com suas habilidades e conhecimentos para tornar este jogo de Damas com inteligência artificial uma realidade.
+Este projeto foi desenvolvido em colaboração por <a href="https://github.com/isabela-code"> Isabela de Queiroz</a>, Mateus Ribeiro e <a href="https://github.com/FafizDev"> Fabricio Silva </a>. Cada membro contribuiu com suas habilidades e conhecimentos para tornar este jogo de Damas com inteligência artificial uma realidade.
 
 ## Como executar o jogo
 
