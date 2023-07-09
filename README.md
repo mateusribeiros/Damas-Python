@@ -36,7 +36,7 @@ Este projeto foi desenvolvido em colaboração por <a href="https://github.com/i
 
 ## Como executar o jogo
 
-Para executar o jogo, é necessário ter o Python instalado juntamente com a biblioteca Pygame. Após a instalação, basta rodar o arquivo principal do jogo e a interface gráfica será aberta, permitindo que o jogador humano comece a jogar contra a inteligência artificial.
+Para executar o jogo, é necessário ter o Python instalado juntamente com a biblioteca Pygame. Após a instalação, basta entrar no diretório Damas e rodar o arquivo Principal.py do jogo e a interface gráfica será aberta, permitindo que o jogador humano comece a jogar contra a inteligência artificial.
 
 ## Considerações finais
 
