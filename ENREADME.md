@@ -32,7 +32,7 @@ This project was developed in collaboration by <a href="https://github.com/isabe
 
 ## How to Run the Game
 
-To run the game, you need to have Python installed along with the Pygame library. After installation, simply run the main game file, and the graphical interface will open, allowing the human player to start playing against the artificial intelligence.
+To run the game, it is necessary to have Python installed along with the Pygame library. After installation, simply navigate to the "Damas" directory and run the game's "Principal.py" file, and the graphical interface will open, allowing the human player to start playing against the artificial intelligence.
 
 ## Final Remarks
 
