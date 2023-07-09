@@ -7,10 +7,10 @@
 Este projeto tem como objetivo desenvolver um jogo de Damas em que um jogador humano possa jogar contra uma inteligência artificial. A aplicação foi implementada em Python, utilizando a biblioteca Pygame para criar uma interface gráfica intuitiva e amigável.
 
 # MENU
-<img width="100px" src="./Imagem/designMenu.jpg" alt="DESIGN MENU" target="_blank">
+<img width="250px" src="./Imagem/designMenu.jpg" alt="DESIGN MENU" target="_blank">
 
 # GAME BOARD
-<img width="100px" src="./Imagem/designTabuleiro.jpg" alt="DESIGN CHESSBOARD" target="_blank">
+<img width="250px" src="./Imagem/designTabuleiro.jpg" alt="DESIGN CHESSBOARD" target="_blank">
 
 ## Funcionalidades
 

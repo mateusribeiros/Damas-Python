@@ -3,10 +3,10 @@
 This project aims to develop a Checkers game where a human player can play against an artificial intelligence. The application was implemented in Python, using the Pygame library to create an intuitive and user-friendly graphical interface.
 
 # MENU
-<img width="100px" src="./Imagem/designMenu.jpg" alt="DESIGN MENU" target="_blank">
+<img width="250px" src="./Imagem/designMenu.jpg" alt="DESIGN MENU" target="_blank">
 
 # GAME BOARD
-<img width="100px" src="./Imagem/designTabuleiro.jpg" alt="DESIGN CHESSBOARD" target="_blank">
+<img width="250px" src="./Imagem/designTabuleiro.jpg" alt="DESIGN CHESSBOARD" target="_blank">
 
 ## Features
 
