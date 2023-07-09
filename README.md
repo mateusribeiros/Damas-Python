@@ -9,7 +9,7 @@ Este projeto tem como objetivo desenvolver um jogo de Damas em que um jogador hu
 # MENU
 <img width="250px" src="./Imagem/designMenu.jpg" alt="DESIGN MENU" target="_blank">
 
-# GAME BOARD
+# TABULEIRO
 <img width="250px" src="./Imagem/designTabuleiro.jpg" alt="DESIGN CHESSBOARD" target="_blank">
 
 ## Funcionalidades
