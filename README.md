@@ -1,5 +1,5 @@
-<a href="ENREADME.md">
-    <img width="12px" src="https://cdn-icons-png.flaticon.com/512/1377/1377975.png" alt="English readme" target="_blank">
+<a href="ENREADME.md"> README in ENGLISH
+    <img width="45px" src="https://cdn-icons-png.flaticon.com/512/1377/1377975.png" alt="English readme" target="_blank">
 </a>
 
 # Jogo de Damas com Inteligência Artificial
@@ -7,10 +7,10 @@
 Este projeto tem como objetivo desenvolver um jogo de Damas em que um jogador humano possa jogar contra uma inteligência artificial. A aplicação foi implementada em Python, utilizando a biblioteca Pygame para criar uma interface gráfica intuitiva e amigável.
 
 # MENU
+<img width="100px" src="./Imagem/designMenu.jpg" alt="DESIGN MENU" target="_blank">
 
-
-# TABULEIRO
-![Menu do Jogo de Damas](./Imagem/designTabuleiro.jpg)
+# GAME BOARD
+<img width="100px" src="./Imagem/designTabuleiro.jpg" alt="DESIGN CHESSBOARD" target="_blank">
 
 ## Funcionalidades
 
