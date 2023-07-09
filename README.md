@@ -1,3 +1,5 @@
+# ![ENGLISH README](ENREADME.md)
+
 # Jogo de Damas com Inteligência Artificial
 
 Este projeto tem como objetivo desenvolver um jogo de Damas em que um jogador humano possa jogar contra uma inteligência artificial. A aplicação foi implementada em Python, utilizando a biblioteca Pygame para criar uma interface gráfica intuitiva e amigável.
@@ -12,11 +14,11 @@ Este projeto tem como objetivo desenvolver um jogo de Damas em que um jogador hu
 
 A aplicação conta com as seguintes funcionalidades:
 
-- **Iniciar um novo jogo:** O jogador pode iniciar uma nova partida de Damas a qualquer momento.
+- **Iniciar um novo jogo SEM Análise da IA:** O jogador pode iniciar uma nova partida de Damas comum a qualquer momento.
+- **Iniciar um novo jogo COM Análise da IA:** O jogador inicia uma partida de Damas, onde serão mostradas em tempo real todas as análises que a Inteligência Artificial realizou por meio da árvore de decisão antes de escolher a melhor jogada e movimentar a peça.
 - **Salvar e recuperar jogo:** É possível interromper o jogo atual e salvá-lo para continuar posteriormente a partir do ponto em que parou.
 - **Informações do jogo:** O jogador pode visualizar informações importantes, como a vez do jogador atual, a quantidade de peças capturadas por cada jogador e quais peças são "damas".
 - **Gravação de jogos:** A sequência de movimentos de um jogo pode ser gravada para posterior recuperação e análise.
-- **Visualização da árvore de decisão:** A qualquer momento, é possível visualizar a árvore de decisão que está sendo gerada pela inteligência artificial para a escolha da melhor jogada.
 
 ## Interface intuitiva
 
@@ -28,7 +30,7 @@ O destaque deste projeto é a presença de uma inteligência artificial que joga
 
 ## Colaboradores
 
-Este projeto foi desenvolvido em colaboração por Isabella de Queiroz, Mateus Ribeiro e Fabrício. Cada membro contribuiu com suas habilidades e conhecimentos para tornar este jogo de Damas com inteligência artificial uma realidade.
+Este projeto foi desenvolvido em colaboração por ![Isabela de Queiroz](https://github.com/isabela-code), Mateus Ribeiro e ![Fabrício Silva](https://github.com/FafizDev). Cada membro contribuiu com suas habilidades e conhecimentos para tornar este jogo de Damas com inteligência artificial uma realidade.
 
 ## Como executar o jogo
 
